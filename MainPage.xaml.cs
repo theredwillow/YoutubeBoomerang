@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Popups;
 using Windows.UI.Core;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,14 +27,42 @@ namespace App1
     public sealed partial class MainPage : Page
     {
         // User's Settings
-        public bool WaitForSelection = false;
-        public string Quantity = "Videos";
-        public string Media = "Audio";
-        public int Quality = 100;
+        static public bool WaitForSelection = false;
+        static public string Quantity = "Videos";
+        static public string Media = "Audio";
+        static public int Quality = 100;
 
+        // Class to hold the variables of a download
+        public class TitleToDownload
+        {
+            public string Title { get; set; }
+            public string Quantity = MainPage.Quantity;
+            public string Media = MainPage.Media;
+            public int Quality = MainPage.Quality;
+            public int Percentage = 0;
+
+            public void StartDownloading()
+            {
+                DownloadingTitles.Add(this);
+                //MainPage.NowDownloading.Add( new ContentControl(){ Content = this; } );
+            }
+        }
+
+        // List to keep track of all that's been downloaded
+        static public List<TitleToDownload> DownloadingTitles = new List<TitleToDownload>();
+
+        // Initializing Function
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        // Function to start a download
+        public void PrepareDownload(string NewTitle)
+        {
+            MainPage.TitleToDownload NewDownload = new MainPage.TitleToDownload();
+            NewDownload.Title = NewTitle;
+            NewDownload.StartDownloading();
         }
 
         // Event for handling video or playlist selection
@@ -60,9 +89,15 @@ namespace App1
             WaitForSelection = Convert.ToBoolean(((CheckBox)sender).IsChecked);
         }
 
+        // Event for handling pressing enter in the title box
         private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-
+            if(e.Key == VirtualKey.Enter)
+            {
+                TextBox titleBox = (TextBox)sender;
+                PrepareDownload(Convert.ToString(titleBox.Text));
+                titleBox.Text = "";
+            }
         }
     }
 }

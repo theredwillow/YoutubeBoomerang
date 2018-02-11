@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\Jared\source\repos\App1\App1\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-02-10T20:25:25.539</Modified>
+      <Modified>2018-02-11T02:28:28.637</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Jared\source\repos\App1\App1\bin\x64\Debug\YoutubeBoomerang.exe">
       <PackagePath>entrypoint\YoutubeBoomerang.exe</PackagePath>
-      <Modified>2018-02-10T20:25:22.490</Modified>
+      <Modified>2018-02-11T02:28:27.933</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Jared\.nuget\packages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -535,7 +535,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Jared\source\repos\App1\App1\bin\x64\Debug\YoutubeBoomerang.xr.xml">
       <PackagePath>YoutubeBoomerang.xr.xml</PackagePath>
-      <Modified>2018-02-10T20:25:21.460</Modified>
+      <Modified>2018-02-11T02:14:44.725</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -544,11 +544,11 @@
     <AppxPackagedFile Include="C:\Users\Jared\source\repos\App1\App1\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-02-10T20:25:24.524</Modified>
+      <Modified>2018-02-11T02:14:46.812</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Jared\source\repos\App1\App1\bin\x64\Debug\Core\YoutubeBoomerang.exe">
       <PackagePath>YoutubeBoomerang.exe</PackagePath>
-      <Modified>2018-02-10T20:25:25.524</Modified>
+      <Modified>2018-02-11T02:28:28.627</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

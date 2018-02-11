@@ -7,7 +7,44 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+
+        <!-- Template for Downloading Titles -->
+        <DataTemplate x:Key="DownloadingTemplate">
+            <Grid BorderThickness="3" BorderBrush="Black"
+                    Padding="5"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!-- Pause/Resume Button -->
+                <Image/>
+
+                <!-- Song Title -->
+                <TextBlock Grid.Row="0" Grid.Column="1"
+                            FontSize="20" HorizontalAlignment="Center"
+                            Text="{Binding Title}"/>
+
+                <!-- Thumbnail Options -->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1" Grid.Column="1"
+                            HorizontalAlignment="Center">
+                    <Image/>
+                    <Image/>
+                    <Image/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+    
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="3*" />
@@ -17,8 +54,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- Now Downloading Area -->
+        <StackPanel x:Name="NowDownloading"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                    Grid.Column="1" Grid.Row="0"/>
+
         <!-- Title Typing Area -->
-        <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" />
+        <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"
+                 KeyDown="TextBox_KeyDown"/>
 
         <!-- Settings Area -->
         <Grid Grid.Row="1" Grid.Column="0">
