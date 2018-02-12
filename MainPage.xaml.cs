@@ -17,12 +17,10 @@ using Windows.UI.Popups;
 using Windows.UI.Core;
 using Windows.System;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace App1
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The main page that handles all the downloading and playing.
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -32,7 +30,9 @@ namespace App1
         static public string Media = "Audio";
         static public int Quality = 100;
 
-        // Class to hold the variables of a download
+        /// <summary>
+        /// Class to hold the variables of a download
+        /// </summary>
         public class TitleToDownload
         {
             public string Title { get; set; }
@@ -57,7 +57,10 @@ namespace App1
             this.InitializeComponent();
         }
 
-        // Function to start a download
+        /// <summary>
+        /// Function to prepare a title for download
+        /// </summary>
+        /// <param name="NewTitle">Title of the YouTube video or audio to download</param>
         public void PrepareDownload(string NewTitle)
         {
             MainPage.TitleToDownload NewDownload = new MainPage.TitleToDownload();
@@ -65,31 +68,55 @@ namespace App1
             NewDownload.StartDownloading();
         }
 
-        // Event for handling video or playlist selection
+        /// <summary>
+        /// Function that is called in the event that a user presses one of the media settings.
+        /// Used to select whether to download whole videos or just their audio.
+        /// </summary>
+        /// <param name="sender">The media radio button that was pressed.</param>
         private void MediaRadioButton_Changed(object sender, RoutedEventArgs e)
         {
             Media = Convert.ToString( ( (RadioButton)sender ).Tag );
         }
 
-        // Event for handling quality level selection
+        /// <summary>
+        /// Function that is called in the event that a user adjusts the quality slider.
+        /// Used to select the quality of the download.
+        /// </summary>
+        /// <remarks>
+        /// Quality is on a scale from 0% to 100%, the available qualities are divided.
+        /// For example, in the case that only two are available, Low or High, less than 50% would be Low and greater than or equal to 50% would be high.
+        /// </remarks>
+        /// <param name="sender">The quality slider.</param>
         private void Slider_QualityChanged(object sender, RoutedEventArgs e)
         {
             Quality = Convert.ToInt16( ( (Slider)sender ).Value );
         }
 
-        // Event for handling music or video selection
+        /// <summary>
+        /// Function that is called in the event that a user presses one of the quantity settings.
+        /// Used to select whether to look for videos or whole playlists.
+        /// </summary>
+        /// <param name="sender">The quantity radio button that was pressed.</param>
         private void QuantityRadioButton_Changed(object sender, RoutedEventArgs e)
         {
             Quantity = Convert.ToString( ( (RadioButton)sender ).Tag );
         }
 
-        // Event for handling automatic or manual selection
+        /// <summary>
+        /// Function that is called in the event that a user checks or unchecks the wait for option.
+        /// Used to select whether the download starts instantly or waits for the user to press play.
+        /// </summary>
+        /// <param name="sender">The wait for checkbox.</param>
         private void WaitForCheckbox_Changed(object sender, RoutedEventArgs e)
         {
             WaitForSelection = Convert.ToBoolean(((CheckBox)sender).IsChecked);
         }
 
-        // Event for handling pressing enter in the title box
+        /// <summary>
+        /// Function that is called in the event that a user presses enter or return inside the title textbox.
+        /// Used to start or queue a download, depending on the wait for variable.
+        /// </summary>
+        /// <param name="sender">The title textbox.</param>
         private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if(e.Key == VirtualKey.Enter)
