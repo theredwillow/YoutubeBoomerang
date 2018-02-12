@@ -44,7 +44,6 @@ namespace App1
             public void StartDownloading()
             {
                 DownloadingTitles.Add(this);
-                //MainPage.NowDownloading.Add( new ContentControl(){ Content = this; } );
             }
         }
 
@@ -66,6 +65,7 @@ namespace App1
             MainPage.TitleToDownload NewDownload = new MainPage.TitleToDownload();
             NewDownload.Title = NewTitle;
             NewDownload.StartDownloading();
+            NowDownloadingList.ItemsSource = DownloadingTitles;
         }
 
         /// <summary>
