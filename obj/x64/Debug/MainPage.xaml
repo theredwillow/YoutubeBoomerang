@@ -5,14 +5,16 @@
     xmlns:local="using:App1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:Converters"
     mc:Ignorable="d">
 
     <!-- Loads the images only once as StaticResource's -->
     <Page.Resources>
         <BitmapImage x:Key="Play" UriSource="..\Assets\play.png"/>
         <BitmapImage x:Key="Pause" UriSource="..\Assets\pause.png"/>
+        <Converters:BooleanBitmapConverter x:Key="BooleanBitmapConverter"/>
     </Page.Resources>
-
+    
     <Grid x:ConnectionId='1' x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -24,48 +26,58 @@
         </Grid.RowDefinitions>
 
         <!-- Creates the style for each download in progress -->
-        <StackPanel x:ConnectionId='2' x:Name="NowDownloading" Orientation="Vertical"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                    Grid.Column="1" Grid.Row="0">
-            <ItemsControl x:ConnectionId='10' x:Name="NowDownloadingList">
+        <ItemsControl x:ConnectionId='2' x:Name="NowDownloadingCollection"
+                      Grid.Column="1" Grid.Row="0">
 
-                <!-- Define the style for every item in the Now Downloading list -->
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid BorderThickness="3" BorderBrush="Black"
-                                  Padding="5"
-                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="9*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+            <!-- Create the area for the Now Downloading area -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel x:Name="NowDownloading" Orientation="Vertical"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-                            <!-- Pause/Resume Button -->
-                            <Image Source="{StaticResource Play}" />
+            <!-- Define the style for every item in the Now Downloading list -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid BorderThickness="3" BorderBrush="Black"
+                          Padding="5" Margin="1"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="9*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                            <!-- Song Title -->
-                            <TextBlock Grid.Row="0" Grid.Column="1"
-                                    FontSize="20" HorizontalAlignment="Center"
-                                    Text="{Binding Title}"/>
+                        <!-- Pause/Resume Button -->
+                        <Image Source="{StaticResource Play}"
+                               Margin="{Binding IsPaused, Converter={StaticResource BooleanBitmapConverter}}" />
 
-                            <!-- Thumbnail Options -->
-                            <StackPanel Orientation="Horizontal"
-                                    Grid.Row="1" Grid.Column="1"
-                                    HorizontalAlignment="Center">
+                        <!-- Song Title -->
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                            FontSize="20" HorizontalAlignment="Center"
+                            Text="{Binding Title}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                            FontSize="20" HorizontalAlignment="Center"
+                            Text="{Binding IsPaused, Converter={StaticResource BooleanBitmapConverter}}"/>
+
+                        <!-- Thumbnail Options -->
+                        <StackPanel Orientation="Horizontal"
+                            Grid.Row="1" Grid.Column="1"
+                            HorizontalAlignment="Center">
                                 <Image/>
                                 <Image/>
                                 <Image/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
 
-            </ItemsControl>
-        </StackPanel>
+        </ItemsControl>
 
         <!-- Title Typing Area -->
         <TextBox x:ConnectionId='3' HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"

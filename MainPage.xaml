@@ -5,12 +5,14 @@
     xmlns:local="using:App1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:Converters"
     mc:Ignorable="d">
 
     <!-- Loads the images only once as StaticResource's -->
     <Page.Resources>
         <BitmapImage x:Key="Play" UriSource="..\Assets\play.png"/>
         <BitmapImage x:Key="Pause" UriSource="..\Assets\pause.png"/>
+        <Converters:BooleanBitmapConverter x:Key="BooleanBitmapConverter"/>
     </Page.Resources>
     
     <Grid x:Name="MainGrid">
@@ -24,7 +26,8 @@
         </Grid.RowDefinitions>
 
         <!-- Creates the style for each download in progress -->
-        <ItemsControl x:Name="NowDownloadingList" Grid.Column="1" Grid.Row="0">
+        <ItemsControl x:Name="NowDownloadingCollection"
+                      Grid.Column="1" Grid.Row="0">
 
             <!-- Create the area for the Now Downloading area -->
             <ItemsControl.ItemsPanel>
@@ -38,7 +41,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid BorderThickness="3" BorderBrush="Black"
-                          Padding="5"
+                          Padding="5" Margin="1"
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -50,7 +53,8 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Pause/Resume Button -->
-                        <Image Source="{StaticResource Play}" />
+                        <Image Source="{StaticResource Play}"
+                               Margin="{Binding IsPaused, Converter={StaticResource BooleanBitmapConverter}}" />
 
                         <!-- Song Title -->
                         <TextBlock Grid.Row="0" Grid.Column="1"
